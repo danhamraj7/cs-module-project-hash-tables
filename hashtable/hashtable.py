@@ -58,6 +58,16 @@ class HashTable:
         """
 
         # Your code here
+        # prime and offset basis are based on 64bit
+        FNV_prime = 1099511628211
+        FNV_offset_basis = 14695981039346656037
+
+        hash_index = FNV_offset_basis
+        bytes_to_hash = key.encode()
+        for byte in bytes_to_hash:
+            hash_index = hash_index * FNV_prime
+            hash_index = hash_index ^ byte
+        return hash_index
 
     def djb2(self, key):
         """
