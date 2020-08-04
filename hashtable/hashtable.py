@@ -94,6 +94,9 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # hash the key
+        hash_index = self.hash_index(key)
+        self.storage[hash_index] = HashTableEntry(key, value)
 
     def delete(self, key):
         """
