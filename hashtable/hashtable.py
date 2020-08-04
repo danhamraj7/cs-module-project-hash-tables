@@ -107,6 +107,15 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # hash the key
+        hash_index = self.hash_index(key)
+        # check if the key is in the storage
+        # if it is, re-assign the value to None
+        if self.storage[hash_index] is not None:
+            self.storage[hash_index] = None
+        # if not, print a warning
+        else:
+            print("The key is not found")
 
     def get(self, key):
         """
