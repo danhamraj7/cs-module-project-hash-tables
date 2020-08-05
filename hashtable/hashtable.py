@@ -27,7 +27,7 @@ class HashTable:
         if capacity < MIN_CAPACITY:
             self.capacity = MIN_CAPACITY
         self.storage = [None]*self.capacity
-        # self.item_stored = 0
+        self.item_stored = 0
 
     def get_num_slots(self):
         """
@@ -45,10 +45,13 @@ class HashTable:
     def get_load_factor(self):
         """
         Return the load factor for this hash table.
+        load factor calculated by dividing the number of elements by the number
+        of slots.
 
         Implement this.
         """
         # Your code here
+        return self.item_stored/self.capacity
 
     def fnv1(self, key):
         """
@@ -97,6 +100,7 @@ class HashTable:
         # hash the key
         hash_index = self.hash_index(key)
         self.storage[hash_index] = HashTableEntry(key, value)
+        self.item_stored += 1
 
     def delete(self, key):
         """
