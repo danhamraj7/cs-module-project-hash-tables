@@ -134,13 +134,37 @@ class HashTable:
         # Your code here
         # hash the key
         hash_index = self.hash_index(key)
-        # check if the key is in the storage
-        # if it is, re-assign the value to None
-        if self.storage[hash_index] is not None:
-            self.storage[hash_index] = None
-        # if not, print a warning
-        else:
+        current = self.storage[hash_index]
+        # 1. nothing to delete
+        if not current:
             print("The key is not found")
+
+        # 2. if there is one element it would be the head
+        elif not current.next:
+            self.storage[hash_index] = None
+            self.item_stored -= 1
+        else:
+            # store pointer to the previous node
+            prev = None
+
+            # Move to the next node if key does not  match
+            # and there is a next
+            while current.key != key and current.next:
+                prev = current
+                current = current.next
+
+            # 3. value to delete in the end of the list
+            if not current.next:
+                prev.next = None
+                self.item_stored -= 1
+            # 4. value in the middle of the list
+            else:
+                prev.next = current.next
+                self.item_stored -= 1
+
+        # resize if load factor is too small
+        if self.get_load_factor() < 0.2:
+            self.resize(self.capacity // 2)
 
     def get(self, key):
         """
