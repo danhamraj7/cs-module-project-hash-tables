@@ -176,8 +176,14 @@ class HashTable:
         """
         # Your code here
         hash_index = self.hash_index(key)
-        if self.storage[hash_index] is not None:
-            return self.storage[hash_index].value
+        if self.storage[hash_index]:
+            current = self.storage[hash_index]
+            while current.key is not key and current.next:
+                current = current.next
+            if not current.next:
+                return current.value
+            else:
+                return current.value
         else:
             return None
 
@@ -189,6 +195,19 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        old_storage = self.storage
+
+        # initialize new hashtable
+        self.capacity = new_capacity
+        self.storage = [None] * new_capacity
+
+        # loop through and add each node to new hashtable
+        for item in old_storage:
+            if item:
+                current = item
+                while current:
+                    self.put(current.key, current.value)
+                    current = current.next
 
 
 if __name__ == "__main__":
