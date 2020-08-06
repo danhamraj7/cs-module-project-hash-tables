@@ -85,8 +85,8 @@ class HashTable:
         Take an arbitrary key and return a valid integer index
         between within the storage capacity of the hash table.
         """
-        # return self.fnv1(key) % self.capacity
-        return self.djb2(key) % self.capacity
+        return self.fnv1(key) % self.capacity
+        # return self.djb2(key) % self.capacity
 
     def put(self, key, value):
         """
@@ -95,17 +95,17 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        hash_index = self.hash_index(key)
+        index = self.hash_index(key)
 
         # insert into an empty spot
-        if not self.storage[hash_index]:
-            self.storage[hash_index] = HashTableEntry(key, value)
+        if not self.storage[index]:
+            self.storage[index] = HashTableEntry(key, value)
             self.item_stored += 1
 
         # linked list:update value for an existing key or
         # create a new entry for the new key
         else:
-            current = self.storage[hash_index]
+            current = self.storage[index]
 
             while current.key != key and current.next:
                 current = current.next
